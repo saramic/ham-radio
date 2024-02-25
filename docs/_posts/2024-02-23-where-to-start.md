@@ -234,3 +234,79 @@ Keen to bring some of this interest into my scout troop. The idea is to bring a 
 - bunch of ideas on keyers
     - [https://www.instructables.com/Arduino-Controlled-Morse-Code-Key-and-Transmitter/](https://www.instructables.com/Arduino-Controlled-Morse-Code-Key-and-Transmitter/)
     - [10 minute transmitter](https://makerf.com/posts/ten-minute-transmitter)
+
+### Center tapped transformer audio oscillator
+
+_https://www.next.gr/circuits/CENTER-TAPPED-TRANSFORMER-AUDIO-OSCILLATOR-l53755.html_
+
+> The oscillator circuit uses a center-tapped transistor output transformer to
+> serve as a load for the collector of Q1, supply a feedback signal for the
+> base, and serve as the output winding for driving the speaker. R1 supplies dc
+> bias and C1 completes the ac path from the transformer to Q1's base. You can
+> play around with the values of C1 and R1 to change the oscillator's output
+> level and tone, but don't reduce R1's value too much or the transistor will
+> draw excessive collector current.
+
+![](/ham-radio/assets/images/20240223_morse_practice_centre_tapped_transformer.gif)
+
+### How To DIY A Morse Code Practice Oscillator?
+
+[![
+  How To DIY A Morse Code Practice Oscillator?
+](
+  http://img.youtube.com/vi/y0HrwT-3spo/0.jpg
+)](https://youtu.be/y0HrwT-3spo)
+
+fundementally
+
+![](/ham-radio/assets/images/20240223_morse_practice_DIY_made_practice_oscillator.jpg)
+
+### ARRL Morse Code Oscillator
+
+[https://www.arrl.org/shop/files/pdfs/Morse%20Code%20Oscillator.pdf](https://www.arrl.org/shop/files/pdfs/Morse%20Code%20Oscillator.pdf)
+
+basically
+
+![](/ham-radio/assets/images/20240223_morse_practice_arrl_morse_code_oscillator.png)
+
+### NightFire - code practice oscillator kit
+
+> This Code Practice Oscillator Kit is a very popular and practical device used
+> in Ham Radio for practicing your Morse Code. It is designed as a
+> One-Transistor, Twin-Tee, Audio Phase-Shift, Sinewave Oscillator with an
+> Audio Amplifier on the output.
+
+> The kit produces a very clean sinewave of 700Hz
+
+> Note: 700Hz is extremely popular and very pleasing to the human ear.
+
+[https://vakits.com/code-practice-oscillator-kit-w-phono-jack-3768](https://vakits.com/code-practice-oscillator-kit-w-phono-jack-3768)
+
+![](/ham-radio/assets/images/20240223_morse_practice_nightfire_code_practice_osc.png)
+
+### Electroncis Project Design - code practice oscillator
+
+[https://www.electronics-project-design.com/CodePracticeOscillator.html](https://www.electronics-project-design.com/CodePracticeOscillator.html)
+
+another `555` based design
+
+![](/ham-radio/assets/images/20240223_morse_practice_555_oscilator.jpg)
+
+### Morse code decoder
+
+Jaycar has one
+[https://www.jaycar.com.au/morse-code-decoder](https://www.jaycar.com.au/morse-code-decoder)
+using a `567 Tone Decoder IC`
+
+- more about the `567` here
+  [https://www.homemade-circuits.com/lm567-tone-decoder-ic-features-and/](https://www.homemade-circuits.com/lm567-tone-decoder-ic-features-and/)
+
+- and this selection of other morse code trainer circuits
+  [https://www.homemade-circuits.com/morse-code-practice-oscillator-circuits/](https://www.homemade-circuits.com/morse-code-practice-oscillator-circuits/)
+  also has one using a `567`
+
+  ![](/ham-radio/assets/images/20240223_morse_practice_using_LM567.jpg)
+
+  the rest of the article is worth checking out for other oscillators,
+  minitransmitters and receivers.
+
