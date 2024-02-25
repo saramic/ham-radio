@@ -15,6 +15,7 @@ What caught my eye was this episode
   ](
     http://img.youtube.com/vi/B7DFOq9rM_M/0.jpg
   )](https://youtu.be/B7DFOq9rM_M)
+
 which discusses the idea of building out a cheap RF lab at home which was not
 possible without the advent of small cheap test equipment like the
 [NanoVNA](https://nanovna.com/) and the [tinySA](https://www.tinysa.org/).
@@ -47,8 +48,8 @@ The equipment covered here is:
     - Inductor sample book - 0603 SMD 1.0nH - 680nH 5% High Frequency,
       Multilayer Type Inductor Combo Sample Book Kit SMT Pack Box Book Assorted
       Kits
-        - https://www.amazon.com/Yobett-0603-SMD-1-2nH-Multilayer/dp/B013DECI3G/ref=sr_1_2
-    - UFL connectors? - https://www.digikey.com.au/en/product-highlight/h/hirose/ufl-series
+        - [https://www.amazon.com/Yobett-0603-SMD-1-2nH-Multilayer/dp/B013DECI3G/ref=sr_1_2](https://www.amazon.com/Yobett-0603-SMD-1-2nH-Multilayer/dp/B013DECI3G/ref=sr_1_2)
+    - UFL connectors? - [https://www.digikey.com.au/en/product-highlight/h/hirose/ufl-series](https://www.digikey.com.au/en/product-highlight/h/hirose/ufl-series)
 
 Clearly a lot of stuff to look into - but first I need somem focus on what is
 the first step.

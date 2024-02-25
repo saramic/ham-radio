@@ -114,6 +114,11 @@ Next would probably be making a resonable directional antenna, like a Tapemeasur
     - [https://www.instructables.com/433-MHz-tape-measure-antenna-suits-UHF-transmitte/](https://www.instructables.com/433-MHz-tape-measure-antenna-suits-UHF-transmitte/)
     - and the supposedly original article that made them popular, on wayback machine
         [waybackmachine: http://pages.videotron.com/ve2jmk/tape_bm.htm](https://web.archive.org/web/20121009234525/http://pages.videotron.com/ve2jmk/tape_bm.htm)
+
+      copied here for posperity
+
+      [/ham-radio/archives/pages.videotron.com_ve2jmk_tape_bm.htm.html](/ham-radio/archives/pages.videotron.com_ve2jmk_tape_bm.htm.html)
+
 - some of these are around `433MHz` band because of the cheap short distance
   transmitters available there [Electroncs stackexchange: Why do my 433 MHz
   receiver and transmitter modules not work
