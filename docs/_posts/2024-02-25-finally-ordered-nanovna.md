@@ -125,3 +125,140 @@ via the web archive
 https://web.archive.org/web/20170124004030/http://www.ad5x.com/images/Articles/Tap50dbRevA.pdf
 but I have copied it for posterity [archive:
 http://www.ad5x.com/images/Articles/Tap50dbRevA.pdf](/ham-radio/archives/www.ad5x.com_images_Articles_Tap50dbRevA.pdf.html)
+
+Talking of the web archive, also found some other interesting stuff relating to
+the original tape measure antenna article
+[/ham-radio/archives/pages.videotron.com_ve2jmk_tape_bm.htm.md](/ham-radio/archives/pages.videotron.com_ve2jmk_tape_bm.htm.md)
+- another tape measure antenna [WebArchive: RDF2 YAGI WITH TAPE MEASURE
+  ELEMENTS](https://web.archive.org/web/20100113064132/http://home.att.net/~jleggio/projects/rdf/snif_bm.htm)
+- [WebArchive: THE FOX - 40 milliwatt
+  transmitter](https://web.archive.org/web/20120504131547/http://theleggios.net/wb2hol/projects/rdf/40mw_tx.htm)
+  with a bunch of cool "ugly construction" and "manhattan" build
+- and [WebArchive: THE FOX750 - 750 milliwatt
+  transmitter](https://web.archive.org/web/20110816224730/http://theleggios.net/wb2hol/projects/rdf/750mw_tx.htm)
+
+Another interest that comes to mind is making available a bunch of software
+that seems to have been hidden or closed sourced. There is a big collection
+here
+[https://github.com/AxiomYT/Ham-Radio-Manuals-and-hard-to-find-tools](https://github.com/AxiomYT/Ham-Radio-Manuals-and-hard-to-find-tools).
+Of particular interest seem to be: Super Morse and YagiCad. But outside of that
+I am also interested in Radiosonde decoding and decoding general recordings of
+digital signals, in real time.
+
+Although for Radiosonde there seems to be this
+[https://github.com/dbdexter-dev/sondedump](https://github.com/dbdexter-dev/sondedump)
+
+```
+git clone git@github.com:dbdexter-dev/sondedump.git dbdexter-dev-sondedump
+cd dbdexter-dev-sondedump
+mkdir build && cd build
+cmake ..
+# errored, I didn't have cmake
+brew install cmake
+
+cmake ..
+# errored, it wanted portaudio, or I could turn it off
+cmake .. -DENABLE_AUDIO=OFF
+make
+./sondedump ~/gqrx_20240224_234742_401500000.wav
+    [decode.c:177] Autodetected: RS41
+    (U4824694) [ 3486] -17.8'C  11%    37.73016S 145.16373E   9847m    27.1m/s  84'  +2.5m/s
+    (U4824694) [ 3487] -17.8'C  11%    37.73013S 145.16403E   9850m    26.4m/s  83'  +3.2m/s
+    (U4824694) [ 3488] -17.9'C   6%    37.73011S 145.16432E   9854m    25.8m/s  84'  +4.8m/s
+    (U4824694) [ 3489] -17.9'C   6%    37.73009S 145.16461E   9858m    25.9m/s  85'  +3.4m/s
+    (U4824694) [ 3490] -18.0'C   6%    37.73007S 145.16490E   9862m    26.3m/s  85'  +3.8m/s
+    ...
+
+# found out I could
+brew install portaudio
+rm -rf ../build/*
+cmake ..
+make
+./sondedump --audio-device 0
+# will listen to microphone? but did not seem to work when I played a recording
+afplay ~/gqrx_20240224_234742_401500000.wav
+```
+
+will need to work out how to treat GQRX as input stream?
+
+also was interesting that you can put in your coordinates to get _"relative
+(az, el, range)"_ presumably
+[https://en.wikipedia.org/wiki/Horizontal_coordinate_system](https://en.wikipedia.org/wiki/Horizontal_coordinate_system):
+
+- **az** - Azimuth
+- **el** - Elevation
+- **range** - distance?
+
+```
+./sondedump -h
+
+Usage: ./sondedump [options] file_in
+   -a, --audio-device <id>      Use PortAudio device <id> as input (default:
+                                choose interactively)
+   -c, --csv <file>             Output data to <file> in CSV format
+   -f, --fmt <format>           Format output lines as <format>
+   -g, --gpx <file>             Output GPX track to <file>
+   -k, --kml <file>             Output KML track to <file>
+   -l, --live-kml <file>        Output live KML track to <file>
+   -r, --location <lat,lon,alt> Set receiver location to <lat, lon, alt>
+                                (default: none)
+   -t, --type <type>            Enable decoder for the given sonde type.
+                                Supported values:
+                                    auto: Autodetect (default)
+                                    c50: Meteolabor SRS-C50
+                                    dfm: GRAW DFM06/09
+                                    imet4: InterMet iMet-4
+                                    ims100: Meisei iMS-100/RS-11G
+                                    m10: MeteoModem M10/M20
+                                    mrzn1: Meteo-Radiy MRZ-N1
+                                    rs41: Vaisala RS41-SG(P,M)
+   -T, --tui                    Enable TUI display
+
+   -h, --help                   Print this help screen
+   -v, --version                Print version info
+
+Available format specifiers:
+   %a      Altitude (m)
+   %b      Burstkill/shutdown timer
+   %c      Climb rate (m/s)
+   %d      Dew point (degrees Celsius)
+   %f      Frame counter
+   %h      Heading (degrees)
+   %l      Latitude (decimal degrees + N/S)
+   %o      Longitude (decimal degrees + E/W)
+   %p      Pressure (hPa)
+   %r      Relative humidity (%)
+   %s      Speed (m/s)
+   %S      Sonde serial number
+   %t      Temperature (degrees Celsius)
+   %T      Timestamp (yyyy-mm-dd hh:mm::ss, local)
+   %x      Decoded XDATA
+
+TUI keybinds:
+   Arrow keys: change active decoder
+   Tab: toggle between absolute (lat, lon, alt) and relative (az, el, range)
+   coordinates (requires -r, --location)
+```
+
+how about routing some audio to be the input using
+[https://existential.audio/blackhole/](https://existential.audio/blackhole/)
+- give email and download via link - I got 2 ch version
+- install
+- go to **Audio MIDI Setup** - as per https://existential.audio/blackhole/support/#system
+    - create a **Multi-Output Device** for sound and blackhole 2ch
+- under **System Settings** > **Sound** change the output to be the multi-output device
+- now playing with `afplay` will decode when running `./sondedump` against the
+  **BlackHole 2ch** device
+
+```
+./sondedump
+
+==============================
+Please select an audio device:
+0) BlackHole 2ch
+1) MacBook Pro Microphone
+```
+
+will listen to the Radiosonde tomorrow and then it's a question of switching it
+to a RasPi - for portability and safety for the computer(a RasPi is cheaper to
+replace)
