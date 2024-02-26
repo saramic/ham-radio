@@ -64,7 +64,7 @@ prototype up and running. I am thinking along the lines of:
   the bits of data
 - finally display it on a small OLED display
 
-it's the decoding and filtering that sound like the hard parts `¯\_(ツ)_/¯` 
+it's the decoding and filtering that sound like the hard parts `¯\_(ツ)_/¯`
 
 either way, first thing would be to confirm that the signal can be received by
 the radio tomorrow at 10am when the next balloon is released and also check
@@ -90,3 +90,124 @@ REAST Training & Assessment - Reast Hobart
 
 hopefully I'll let some soldersmoke out tonight on one of those morse code
 practice oscillators ...
+
+### More radiosonde info
+
+Found this really detailed blog on radiosondes [Alex's blog - Radiosonde
+Hunting Sunday, May 24, 2020
+](https://flux242.blogspot.com/2020/05/radiosonde-hunting.html). This makes
+mention of a lot of resrouces like:
+- how people have re-puropsed radiosondes to transmit
+- how people find radiosondes including building their own power meters
+  [![
+    Wetter-Sonden-Tracker von OE3AJC - lerrypage
+  ](
+    http://img.youtube.com/vi/j-vJQBvxPKM/0.jpg
+  )](https://youtu.be/j-vJQBvxPKM)
+
+  althought it seems hard to find the source code
+- some ideas on making a yagi using a TV rabbit ear antenna
+- a whole bunch of software and hardware options for listening and decoding
+  signals (_althought none of these really seem to be of any need compared to
+  sondedump_)
+- as well as [https://rdzsonde.mooo.com/](https://rdzsonde.mooo.com/) using
+  TTGO ESP32 LoRa hardware
+  - with the code
+    [https://github.com/dl9rdz/rdz_ttgo_sonde](https://github.com/dl9rdz/rdz_ttgo_sonde)
+    seems to be more upto date and the original of
+    https://github.com/djecom1/rdz_ttgo_sonde mentioned above.
+- also smartphone App controlled devices?
+  [https://github.com/einergehtnochrein/ra-hardware](https://github.com/einergehtnochrein/ra-hardware)
+- the author's approach of using `rtl-sdr` package and a bunch of shell scripts
+  that seem to define the radio? - as well as setting up an SPP (Serial Port
+  Profile) to communicate data from a backpack computer to a smartphone to
+  simplify hands free finding.
+- a video around how to use the LoRa TTGO board
+
+  #360 Tracking and Chasing Weather Balloons with TTGO LoRa Board and Raspberry
+  Pi. Fun and Adventure - Andreas Spiess
+
+  [![
+    #360 Tracking and Chasing Weather Balloons with TTGO LoRa Board and
+    Raspberry Pi. Fun and Adventure - Andreas Spiess
+  ](
+    http://img.youtube.com/vi/vQfztG60umI/0.jpg
+  )](https://youtu.be/vQfztG60umI)
+- which makes me think, is it just a question of decoding `APRS` ?
+
+  Tracker APRS bi-frequences - djecom2
+
+  [![
+    Tracker APRS bi-frequences - djecom2
+  ](
+    http://img.youtube.com/vi/91j5z73_nHw/0.jpg
+  )](https://youtu.be/91j5z73_nHw)
+
+  but still no code from `@djecom2`
+
+- Receiving APRS using Baofeng UV-5R and ESP32 - Ryan Kinnett
+  [![
+    Receiving APRS using Baofeng UV-5R and ESP32 - Ryan Kinnett
+  ](
+    http://img.youtube.com/vi/HL8Il7bdnJ8/0.jpg
+  )](https://youtu.be/HL8Il7bdnJ8)
+
+  seems to stream sound via Wifi and uses the PC to decode the APRS signal
+
+  - [https://github.com/rkinnett/ESP32-VBAN-Audio-Source](https://github.com/rkinnett/ESP32-VBAN-Audio-Source)
+  - [https://hackaday.io/project/170710-esp32-tnc-and-audio-relay-for-hfvhf-packet-radio](https://hackaday.io/project/170710-esp32-tnc-and-audio-relay-for-hfvhf-packet-radio)
+
+- Finally Arduino Decoder for APRS monitoring with using OLED as well as
+  MP3-Player - DJ7OO
+
+  [![
+    Decoder for APRS monitoring with using OLED as well as MP3-Player - DJ7OO
+  ](
+    http://img.youtube.com/vi/S-wt9EOdMKE/0.jpg
+  )](https://youtu.be/S-wt9EOdMKE)
+
+  seems to actually decode on Arduino, using 2 Arduino Pro's, but again no code
+
+  > @amessiah_ 5 years ago
+  >
+  > Same. Share code with us.
+  >
+  > @CharudattUplap 6 years ago
+  >
+  > Klaus , where can I find the code for this.
+  >
+  > > @MeineVideokasetten 3 years ago
+  > >
+  > > He'll never answer!
+
+  - although it seems it is documented here
+    [http://www.kh-gps.de/aprspeak3.htm](http://www.kh-gps.de/aprspeak3.htm)
+    with a what seems a standard way to connect to the audio output
+
+  ![](/ham-radio/assets/images/www.kh-gps.de_aprspeak3_codec_101.jpg)
+
+  and references the code being at
+    - http://unsigned.io/projects/libaprs/
+    - which can only be viewed via
+      https://web.archive.org/web/20180611013225/https://github.com/markqvist/LibAPRS
+    - which links off to [https://github.com/markqvist/LibAPRS](https://github.com/markqvist/LibAPRS)
+    - but presumably any APRS libary may be enough?
+      - [https://unsigned.io/shop/arduino-aprs-library/](https://unsigned.io/shop/arduino-aprs-library/)
+      - [https://github.com/EvanKrall/LibAPRS-esp32-i2s](https://github.com/EvanKrall/LibAPRS-esp32-i2s)
+        it would be interesting to see more of the details here
+
+      > The ESP32's adc1_get_raw() / adc2_get_raw() methods can only be called
+      > at about 6000Hz; LibAPRS wants 9600Hz. To get around this limitation,
+      > this fork uses the ESP32's I2S peripheral to drive both the ADC and the
+      > DAC.
+
+      - there is no doubt a lot to read about ADC within ESP32's
+        [https://lastminuteengineers.com/esp32-basics-adc/](https://lastminuteengineers.com/esp32-basics-adc/)
+
+---
+
+ok and about those UV-K5's, maybe one time there will be time to put some of
+the alternate software
+
+[https://github.com/piotr022/UV_K5_playground](https://github.com/piotr022/UV_K5_playground)
+
