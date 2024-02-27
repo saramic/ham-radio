@@ -24,18 +24,12 @@ have found such a radiosonde.
 1 such radio sonde was [sondenumber:
 U2840056](https://radiosondy.info/sonde.php?sondenumber=U2840056)
 
-<img width="200"
-  src="/ham-radio/assets/images/20240220_radiosonde_U2840056_10.13am.png">
-<img width="200"
-  src="/ham-radio/assets/images/20240220_radiosonde_U2840056_10.33am.png">
-<img width="200"
-  src="/ham-radio/assets/images/20240220_radiosonde_U2840056_11.36am.png">
-<img width="200"
-  src="/ham-radio/assets/images/20240220_radiosonde_U2840056_11.01am.png">
-<img width="200"
-  src="/ham-radio/assets/images/20240220_radiosonde_U2840056_11.19am.png">
-<img width="200"
-  src="/ham-radio/assets/images/20240220_radiosonde_U2840056_10.43am.png">
+![](/ham-radio/assets/images/20240220_radiosonde_U2840056_10.13am.png){: width="200" }
+![](/ham-radio/assets/images/20240220_radiosonde_U2840056_10.33am.png){: width="200" }
+![](/ham-radio/assets/images/20240220_radiosonde_U2840056_11.36am.png){: width="200" }
+![](/ham-radio/assets/images/20240220_radiosonde_U2840056_11.01am.png){: width="200" }
+![](/ham-radio/assets/images/20240220_radiosonde_U2840056_11.19am.png){: width="200" }
+![](/ham-radio/assets/images/20240220_radiosonde_U2840056_10.43am.png){: width="200" }
 
 I found a couple of resources on tracking these radiosondes
 - [https://www.klofas.com/blog/2020/two-months-radiosonde-reception/](https://www.klofas.com/blog/2020/two-months-radiosonde-reception/)
@@ -247,7 +241,7 @@ _https://www.next.gr/circuits/CENTER-TAPPED-TRANSFORMER-AUDIO-OSCILLATOR-l53755.
 > level and tone, but don't reduce R1's value too much or the transistor will
 > draw excessive collector current.
 
-![](/ham-radio/assets/images/20240223_morse_practice_centre_tapped_transformer.gif)
+![](/ham-radio/assets/images/20240223_morse_practice_centre_tapped_transformer.gif){: width="480" }
 
 ### How To DIY A Morse Code Practice Oscillator?
 
@@ -259,7 +253,7 @@ _https://www.next.gr/circuits/CENTER-TAPPED-TRANSFORMER-AUDIO-OSCILLATOR-l53755.
 
 fundementally
 
-![](/ham-radio/assets/images/20240223_morse_practice_DIY_made_practice_oscillator.jpg)
+![](/ham-radio/assets/images/20240223_morse_practice_DIY_made_practice_oscillator.jpg){: width="480" }
 
 ### ARRL Morse Code Oscillator
 
@@ -267,7 +261,7 @@ fundementally
 
 basically
 
-![](/ham-radio/assets/images/20240223_morse_practice_arrl_morse_code_oscillator.png)
+![](/ham-radio/assets/images/20240223_morse_practice_arrl_morse_code_oscillator.png){: width="480" }
 
 ### NightFire - code practice oscillator kit
 
@@ -282,7 +276,7 @@ basically
 
 [https://vakits.com/code-practice-oscillator-kit-w-phono-jack-3768](https://vakits.com/code-practice-oscillator-kit-w-phono-jack-3768)
 
-![](/ham-radio/assets/images/20240223_morse_practice_nightfire_code_practice_osc.png)
+![](/ham-radio/assets/images/20240223_morse_practice_nightfire_code_practice_osc.png){: width="480" }
 
 ### Electroncis Project Design - code practice oscillator
 
@@ -290,7 +284,7 @@ basically
 
 another `555` based design
 
-![](/ham-radio/assets/images/20240223_morse_practice_555_oscilator.jpg)
+![](/ham-radio/assets/images/20240223_morse_practice_555_oscilator.jpg){: width="480" }
 
 ### Morse code decoder
 
@@ -305,7 +299,7 @@ using a `567 Tone Decoder IC`
   [https://www.homemade-circuits.com/morse-code-practice-oscillator-circuits/](https://www.homemade-circuits.com/morse-code-practice-oscillator-circuits/)
   also has one using a `567`
 
-  ![](/ham-radio/assets/images/20240223_morse_practice_using_LM567.jpg)
+  ![](/ham-radio/assets/images/20240223_morse_practice_using_LM567.jpg){: width="480" }
 
   the rest of the article is worth checking out for other oscillators,
   minitransmitters and receivers.

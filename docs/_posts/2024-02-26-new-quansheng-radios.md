@@ -184,7 +184,7 @@ mention of a lot of resrouces like:
     [http://www.kh-gps.de/aprspeak3.htm](http://www.kh-gps.de/aprspeak3.htm)
     with a what seems a standard way to connect to the audio output
 
-  ![](/ham-radio/assets/images/www.kh-gps.de_aprspeak3_codec_101.jpg)
+  ![](/ham-radio/assets/images/www.kh-gps.de_aprspeak3_codec_101.jpg){: width="480" }
 
   and references the code being at
     - http://unsigned.io/projects/libaprs/
