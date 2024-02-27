@@ -27,6 +27,9 @@ baseurl: /ham-radio
 twitter_username: saramic
 github_username:  saramic
 
+# Timezone by default is UTC
+timezone: Australia/Melbourne
+
 # Build settings
 markdown: kramdown
 theme: minima
