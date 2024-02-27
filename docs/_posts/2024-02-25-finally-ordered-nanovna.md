@@ -262,3 +262,17 @@ Please select an audio device:
 will listen to the Radiosonde tomorrow and then it's a question of switching it
 to a RasPi - for portability and safety for the computer(a RasPi is cheaper to
 replace)
+
+**Update** to run sondedump just run
+
+```sh
+git clone git@github.com:saramic/ham-radio.git
+cd ham-radio/experiments/in_radiosonde_sondedump
+
+make
+make build
+make demo
+
+# to clean up
+make clean
+```

@@ -1,0 +1,7 @@
+# mange dependencies with brew https://brew.sh/
+
+brew "portaudio"            # Cross-platform library for audio I/O
+                            # https://www.portaudio.com
+
+brew "cmake"                # Cross-platform make https://www.cmake.org/
+
