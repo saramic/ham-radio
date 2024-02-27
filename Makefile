@@ -1,0 +1,28 @@
+.DEFAULT_GOAL := usage
+
+# user and repo
+USER        = $$(whoami)
+CURRENT_DIR = $(notdir $(shell pwd))
+
+# terminal colours
+RED     = \033[0;31m
+GREEN   = \033[0;32m
+YELLOW  = \033[0;33m
+NC      = \033[0m
+
+.PHONY: dev-blog
+dev-blog:
+	pushd docs && \
+		bundle && \
+		bundle exec jekyll serve && \
+		popd
+
+.PHONY: usage
+usage:
+	@echo
+	@echo "Hi ${GREEN}${USER}!${NC} Welcome to ${RED}${CURRENT_DIR}${NC}"
+	@echo
+	@echo "Getting started"
+	@echo
+	@echo "${YELLOW}make dev-blog${NC}     run the dev-blog from inside ./docs"
+	@echo
