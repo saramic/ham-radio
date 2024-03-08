@@ -201,6 +201,15 @@ and [http://www.wa1mba.org/yagiinfo.htm](http://www.wa1mba.org/yagiinfo.htm)
 led me to the source of some of these ramblings at
 [http://www.wa1mba.org/Perfect%20Yagi%20Charts2.pdf](http://www.wa1mba.org/Perfect%20Yagi%20Charts2.pdf)
 
+But probably the best quote is the end here
+
+> The most critical of 432 yagis were developed by K2RIW, his 19 element
+> design. He demanded element length precision to +/- 1/64th inch, and when
+> that care is taken that yagi comes up at 15.05 to 15.1 dBd at antenna
+> measuring contests. Its so consistent that its the US standard gain reference
+> for 432. With a pair of them at about 75 feet, **I've heard CW signals off
+> the moon at moon rise by ear without a preamp on the radio.**
+
 In the end I put `DL6WU` into search and found another site which looks a lot
 more on the money
 
