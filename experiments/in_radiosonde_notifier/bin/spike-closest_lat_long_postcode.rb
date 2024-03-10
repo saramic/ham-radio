@@ -23,17 +23,17 @@ distance = lambda do |lat_a, lon_a, lat_b, lon_b|
 end
 
 my_lat_long = {latitude: ARGV[0].to_f, longitude: ARGV[1].to_f}
-
-distances = []
-lat_long.each do |lat_long_postcode|
-  distances << {
-    distance: distance.call(
-      my_lat_long[:latitude],
-      my_lat_long[:longitude],
-      lat_long_postcode[:latitude],
-      lat_long_postcode[:longitude]
-    ),
-    suburb: lat_long_postcode
-  }
+closest_postcode = lat_long.min do |a_lat_long_postcode, b_lat_long_postcode|
+  distance.call(
+    my_lat_long[:latitude],
+    my_lat_long[:longitude],
+    a_lat_long_postcode[:latitude],
+    a_lat_long_postcode[:longitude]
+  ) <=> distance.call(
+    my_lat_long[:latitude],
+    my_lat_long[:longitude],
+    b_lat_long_postcode[:latitude],
+    b_lat_long_postcode[:longitude]
+  )
 end
-pp distances.min_by { |a| a[:distance] }
+pp closest_postcode
