@@ -3,15 +3,16 @@
 require "csv"
 require "JSON"
 
+float_converter = lambda do |line|
+  /\d+\.\d+/.match?(line) ? line.to_f : line
+end
+
 lat_long = CSV.read(
   File.join(File.dirname(__FILE__), "../data/australian-postcodes.csv"),
-  headers: true
+  headers: true,
+  header_converters: :symbol,
+  converters: float_converter
 )
-
-lat_long.map do |line|
-  line["longitude"] = line["longitude"].to_f
-  line["latitude"] = line["latitude"].to_f
-end
 
 distance = lambda do |lat_a, lon_a, lat_b, lon_b|
   Math.acos(
@@ -21,29 +22,18 @@ distance = lambda do |lat_a, lon_a, lat_b, lon_b|
   ) * 6371
 end
 
-# Melbourne airport
-my_lat_long = {latitude: -37.6697, longitude: 144.831}
+my_lat_long = {latitude: ARGV[0].to_f, longitude: ARGV[1].to_f}
 
 distances = []
 lat_long.each do |lat_long_postcode|
-  distances << {distance: distance.call(
-    my_lat_long[:latitude],
-    my_lat_long[:longitude],
-    lat_long_postcode["latitude"],
-    lat_long_postcode["longitude"]
-  ), suburb: lat_long_postcode}
-end
-pp distances.min_by { |a| a[:distance] }
-
-# Mount Evelyn
-my_lat_long = {latitude: -37.7767, longitude: 145.428}
-distances = []
-lat_long.each do |lat_long_postcode|
-  distances << {distance: distance.call(
-    my_lat_long[:latitude],
-    my_lat_long[:longitude],
-    lat_long_postcode["latitude"],
-    lat_long_postcode["longitude"]
-  ), suburb: lat_long_postcode}
+  distances << {
+    distance: distance.call(
+      my_lat_long[:latitude],
+      my_lat_long[:longitude],
+      lat_long_postcode[:latitude],
+      lat_long_postcode[:longitude]
+    ),
+    suburb: lat_long_postcode
+  }
 end
 pp distances.min_by { |a| a[:distance] }

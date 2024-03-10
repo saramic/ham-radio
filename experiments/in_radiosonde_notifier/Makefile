@@ -10,8 +10,14 @@ GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
 NC      = \033[0m
 
+data/australian-postcodes.csv:
+	bin/makefile/fetch-gist.rb \
+		https://gist.github.com/randomecho/5020859 | \
+		bin/makefile/extract-sql-values.rb > \
+		data/australian-postcodes.csv
+
 .PHONY: install
-install:
+install: data/australian-postcodes.csv
 	bundle
 
 .PHONY: rubocop-fix
@@ -28,10 +34,17 @@ rspec:
 
 .PHONY: demo
 demo:
-	echo "demo goes here"
+	# Melbourne airport
+	bin/spike-closest_lat_long_postcode.rb -37.6697 144.831
+	# Mount Evelyn
+	bin/spike-closest_lat_long_postcode.rb -37.7767 145.428
 
 .PHONY: build
 build: rspec demo
+
+.PHONY: clean
+clean:
+	rm data/australian-postcodes.csv
 
 .PHONY: usage
 usage:
