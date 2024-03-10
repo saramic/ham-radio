@@ -34,10 +34,10 @@ rspec:
 
 .PHONY: demo
 demo:
-	# Melbourne airport
-	bin/spike-closest_lat_long_postcode.rb -37.6697 144.831
-	# Mount Evelyn
-	bin/spike-closest_lat_long_postcode.rb -37.7767 145.428
+	@echo "launching at Melbourne Airport 🛫"
+	@echo "the ballonn 🎈 landing prediction for NOW is"
+	bin/spike-predicted_lat_long.rb -37.6697 144.831 | \
+		xargs bin/spike-closest_lat_long_postcode.rb
 
 .PHONY: build
 build: rspec demo
