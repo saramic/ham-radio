@@ -38,7 +38,7 @@ demo:
 	@echo "the ballonn 🎈 landing prediction for NOW is"
 	bin/spike-predicted_lat_long.rb -37.6697 144.831 | \
 		xargs bin/spike-closest_lat_long_postcode.rb
-	bin/spike-fetch-screenshot.rb
+	bin/spike-fetch-screenshot.rb -37.6697 144.831
 
 .PHONY: build
 build: rspec demo

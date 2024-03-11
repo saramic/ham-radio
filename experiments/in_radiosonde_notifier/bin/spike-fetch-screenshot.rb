@@ -23,9 +23,18 @@ prediction_url.query = URI.encode_www_form(params)
 driver = Selenium::WebDriver.for :chrome
 driver.navigate.to prediction_url
 driver.manage.window.resize_to(960, 750)
-# wait = Selenium::Webdriver::Wait.new(timeout: 15)
-# wait.until { find element driver.find_element(:...)
-sleep 2 # wait for page to load
+wait = Selenium::WebDriver::Wait.new
+wait.until do
+  driver.find_elements(class: "leaflet-marker-icon").count == 3 # launch 🎈, pop 💥, land 🛬
+end
+
+# this wait does not seem to work
+wait.until do
+  driver.find_elements(css: "img[src=\"images/target-1-sm.png\"]")
+  driver.find_elements(css: "img[src=\"images/target-8-sm.png\"]")
+end
+sleep 0.4 # time to render all the icons
+
 fingerprint = params.slice(:launch_latitude, :launch_longitude, :launch_datetime).values.join("_").tr(" ", "-")
 driver.save_screenshot("tmp/predict_#{fingerprint}.png")
 puts `/Users/michael/.iterm2/imgcat tmp/predict_#{fingerprint}.png`
