@@ -15,10 +15,14 @@ lat_long = CSV.read(
 )
 
 distance = lambda do |lat_a, lon_a, lat_b, lon_b|
+  lat_a_rad = lat_a * Math::PI / 180
+  lon_a_rad = lon_a * Math::PI / 180
+  lat_b_rad = lat_b * Math::PI / 180
+  lon_b_rad = lon_b * Math::PI / 180
   Math.acos(
-    Math.sin(lat_a) * Math.sin(lat_b) +
-    Math.cos(lat_a) * Math.cos(lat_b) *
-    Math.cos(lon_b - lon_a)
+    Math.sin(lat_a_rad) * Math.sin(lat_b_rad) +
+    Math.cos(lat_a_rad) * Math.cos(lat_b_rad) *
+    Math.cos(lon_b_rad - lon_a_rad)
   ) * 6371
 end
 
@@ -37,3 +41,9 @@ closest_postcode = lat_long.min do |a_lat_long_postcode, b_lat_long_postcode|
   )
 end
 pp closest_postcode
+pp distance.call(
+  my_lat_long[:latitude],
+  my_lat_long[:longitude],
+  closest_postcode[:latitude],
+  closest_postcode[:longitude]
+)
