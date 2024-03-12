@@ -38,4 +38,4 @@ sleep 0.4 # time to render all the icons
 fingerprint = params.slice(:launch_latitude, :launch_longitude, :launch_datetime).values.join("_").tr(" ", "-")
 driver.save_screenshot("tmp/predict_#{fingerprint}.png")
 puts prediction_url
-puts `/Users/michael/.iterm2/imgcat tmp/predict_#{fingerprint}.png`
+puts `~/.iterm2/imgcat tmp/predict_#{fingerprint}.png`
