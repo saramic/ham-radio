@@ -9,7 +9,8 @@ categories: Yagi radiosonde
 
 for better or for worse, I have attached the coax to the Yagi!
 
-![]()
+![](/ham-radio/assets/images/20240312_yagi_for_radiosonde_finished.jpg){:
+width="480"}
 
 Learnings:
 - drill the hole and put the cable through "before" attaching the connector and
