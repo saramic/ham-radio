@@ -45,7 +45,7 @@ wait = Selenium::WebDriver::Wait.new
 
 wait.until do
   # 5: launch 🚀, balloon 🎈, home 🏠, burst 💥, land 🛬
-  driver.find_elements(class: "leaflet-marker-icon").count == 5
+  driver.find_elements(class: "leaflet-marker-icon").count >= 4 # home 🏠 - not guaranteed
 end
 
 driver.save_screenshot("tmp/progress_#{current[:number]}.png")
