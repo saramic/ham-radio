@@ -36,8 +36,10 @@ build: brew-bundle dbdexter-dev-sondedump
 .PHONY: demo
 demo:
 	@dbdexter-dev-sondedump/build/sondedump --version && \
-		echo "${GREEN}\n\tdemo coming soon ⏱️ ${NC}" || \
+		dbdexter-dev-sondedump/build/sondedump \
+		demo/gqrx_20240317_radiosonde_V2431106.wav || \
 		echo "${RED}\n\trun ${YELLOW}make build${RED} to compile sondedump ❌${NC}"
+	afplay demo/gqrx_20240317_radiosonde_V2431106.wav
 	
 .PHONY: clean
 clean:
