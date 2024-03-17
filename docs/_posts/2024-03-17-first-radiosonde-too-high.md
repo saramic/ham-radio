@@ -155,5 +155,12 @@ sondedump v1.1 +portaudio +ncurses
 afplay demo/gqrx_20240317_radiosonde_V2431106.wav
 ```
 
-![
-](https://github.com/saramic/ham-radio/tree/main/experiments/in_radiosonde_sondedump/demo/gqrx_20240317_radiosonde_V2431106.wav)
+and the recording from the
+[experiments/in_radiosonde_sondedump](https://github.com/saramic/ham-radio/tree/main/experiments/in_radiosonde_sondedump)
+directory
+
+{%
+  include embed-audio.html
+  src="https://github.com/saramic/ham-radio/raw/main/experiments/in_radiosonde_sondedump/demo/gqrx_20240317_radiosonde_V2431106.wav"
+%}
+
