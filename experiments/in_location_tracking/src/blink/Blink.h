@@ -8,6 +8,8 @@ public:
   void switchState();
   void flash();
   void pulse();
+  void switchOn();
+  void switchOff();
 
 private:
   byte light = LOW;
