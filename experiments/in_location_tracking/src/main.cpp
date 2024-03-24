@@ -6,12 +6,10 @@
 #define BOOT_GPIO0 0  // ESP32 boot button
 
 Blink blink;
-byte state = B00000000;
 
 void switchMode()
 {
-  state++;
-  blink.init(); // needed to reset output so can switch between analog/digital write
+  blink.switchState();
 }
 
 void setup()
@@ -27,7 +25,7 @@ void setup()
 
 void loop()
 {
-  state & 0x1 ? blink.pulse() : blink.flash();
+  blink.perform();
 
   delay(20);
 }

@@ -5,7 +5,22 @@
 
 void Blink::init()
 {
-  pinMode(LED_BUILTIN, OUTPUT);
+  // Initialize channels
+  // channels 0-15, resolution 1-16 bits, freq limits depend on resolution
+  // ledcSetup(uint8_t channel, uint32_t freq, uint8_t resolution_bits);
+  ledcSetup(0, 4000, 8); // 12 kHz PWM, 8-bit resolution
+  setupPinMode();
+}
+
+void Blink::switchState()
+{
+  state++;
+  setupPinMode();
+}
+
+void Blink::perform()
+{
+  (state & 0x1) ?  pulse() : flash();
 }
 
 void Blink::flash()
@@ -23,7 +38,8 @@ void Blink::flash()
 
 void Blink::pulse()
 {
-  analogWrite(LED_BUILTIN, (128 * sin(pwm)) + 128);
+  // analogWrite(LED_BUILTIN, (128 * sin(pwm)) + 128);
+  ledcWrite(0, (128 * sin(pwm)) + 128);
   Serial.print(">pwm:");
   Serial.println(pwm);
   Serial.print(">sin:");
@@ -31,4 +47,16 @@ void Blink::pulse()
   Serial.print(">cos:");
   Serial.println(cos(pwm));
   pwm += 0.1;
+}
+
+void Blink::setupPinMode()
+{
+  if(state & 0x1)
+  {
+    ledcAttachPin(LED_BUILTIN, 0);
+  }
+  else
+  {
+    pinMode(LED_BUILTIN, OUTPUT);
+  }
 }
