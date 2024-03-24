@@ -4,7 +4,7 @@ class Direction
 {
 public:
   void init();
-  void calibrate(void (*callbackPre)(), void (*callbackStart)(), void(*callbackEnd)());
+  void calibrate(void (*callbackPre)(), void (*callbackStart)(), void (*callbackEnd)());
   int read();
 
 private:

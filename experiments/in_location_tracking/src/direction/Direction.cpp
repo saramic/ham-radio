@@ -22,9 +22,11 @@ void Direction::init()
   // NOTE: manual calibration settings coppied from running calibrate()
   // compass.setCalibrationOffsets(-530.00, -1155.00, 85.00);
   // compass.setCalibrationScales(1.06, 0.72, 1.48);
+  compass.setCalibrationOffsets(180.00, 318.00, 1125.00);
+  compass.setCalibrationScales(0.89, 0.65, 2.89);
 }
 
-void Direction::calibrate(void (*callbackPre)(), void (*callbackStart)(), void(*callbackEnd)())
+void Direction::calibrate(void (*callbackPre)(), void (*callbackStart)(), void (*callbackEnd)())
 {
   callbackPre();
   compass.init();
@@ -58,15 +60,13 @@ void Direction::calibrate(void (*callbackPre)(), void (*callbackStart)(), void(*
 
   compass.init();
   compass.setCalibrationOffsets(
-    compass.getCalibrationOffset(0),
-    compass.getCalibrationOffset(1),
-    compass.getCalibrationOffset(2)
-  );
+      compass.getCalibrationOffset(0),
+      compass.getCalibrationOffset(1),
+      compass.getCalibrationOffset(2));
   compass.setCalibrationScales(
-    compass.getCalibrationScale(0),
-    compass.getCalibrationScale(1),
-    compass.getCalibrationScale(2)
-  );
+      compass.getCalibrationScale(0),
+      compass.getCalibrationScale(1),
+      compass.getCalibrationScale(2));
   callbackEnd();
 }
 
@@ -74,6 +74,7 @@ int Direction::read()
 {
   compass.read();
   int azimuth = compass.getAzimuth();
+  azimuth = azimuth < 0 ? 360 + azimuth : azimuth;
   if (DEBUG)
   {
     int x = compass.getX();
