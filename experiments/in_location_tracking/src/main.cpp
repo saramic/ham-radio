@@ -2,26 +2,32 @@
 
 #include "blink/Blink.h"
 
-Blink blink;
+#define LED_BUILTIN 2 // ESP32 equivalent of Arduino 13
+#define BOOT_GPIO0 0  // ESP32 boot button
 
-long last = 0;
-boolean light = false;
+Blink blink;
+byte state = B00000000;
+
+void switchMode()
+{
+  state++;
+  blink.init(); // needed to reset output so can switch between analog/digital write
+}
 
 void setup()
 {
   Serial.begin(115200);
   Serial.println("setup");
 
+  // NOTE: FALLING is button depressed, (RISING is button released)
+  attachInterrupt(BOOT_GPIO0, switchMode, FALLING); // LOW, HIGHT, CHANGE, FALLING, RISING
+
   blink.init();
 }
 
 void loop()
 {
-  long now = millis();
-  if (now - last > 1000) // 1 second flash
-  {
-    blink.flash();
-    last = now;
-  }
+  state & 0x1 ? blink.pulse() : blink.flash();
+
   delay(20);
 }
