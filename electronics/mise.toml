@@ -1,0 +1,2 @@
+[tasks.download]
+depends = "download-encyclopedia-electronic-circuits"
