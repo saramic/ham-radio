@@ -1,5 +1,48 @@
 # NOTES
 
+## Fri 30 May 2025
+
+### The Forrest Mims Circuit Scrapbook Volume I
+
+Started reading this and am amazed at the cool approach of "analog comuters" the idea of addition, multiplication and the use of Logs like in a slide rule. A chips of interest showed up, not all of them that easy to get.
+- `AD534` IC trimmed multiplier
+    - https://www.digikey.com.au/en/products/detail/analog-devices-inc/AD534JD/611754
+    - no longer available and was quite expensive
+    - https://www.digikey.com.au/en/products/detail/analog-devices-inc/AD534LDZ/1812550
+        - $399.11
+    - ALTERANTIVE might be the AD633 - low cost analog multiplier
+        - https://www.digikey.com.au/en/products/detail/analog-devices-inc/AD633ANZ/750990
+        - $31.45 still not too cheap
+    - looking at other ALTERNATIVES
+        - https://www.digikey.com.au/en/products/filter/linear/analog-multipliers-dividers/772
+        - like the GT4123BCDA which is $6 but can only be bought in bulk (x85)
+    - more on Analog Multipliers -
+      https://en.wikipedia.org/wiki/Analog_multiplier
+- `4066` is a standard CMOS Quad Bilateral switch
+    - https://www.digikey.com.au/en/products/detail/texas-instruments/CD4066BE/67313
+    - $1.19
+- `CA3130` BiMOS Op Amp
+    - the CA3130 BiMos Op-Amp Linear IC is on clearance at Jaycar at $6.95
+    - https://www.jaycar.com.au/ca3130-bimos-op-amp-linear-ic/p/ZL3860
+- `TC9400` Voltage to Frequency Converter
+    - is also super expensive $14 per unit but bulk (x57)
+    - https://au.rs-online.com/web/p/voltage-to-frequency-frequency-to-voltage-converters/1779688
+    - ALTERNATIVE LM331 - $6.63
+    - https://www.digikey.com.au/en/products/detail/texas-instruments/LM331N-NOPB/6213
+    - LMx31x Precision Voltage-to-Frequency Converters
+- 2688/MM5837 Noise Generator
+    - https://www.analog.com/en/resources/design-notes/building-a-lowcost-whitenoise-generator.html
+        - using a MAX2650 DC-to-Microwave, +5V Low-Noise Amplifier
+            - https://www.analog.com/en/products/max2650.html
+    - also via
+      https://www.schematicsforfree.com/files/Oscillators%20and%20Generators/Pink-White%20%26%20Other%20Noise%20Generators/Pink%20%26%20White%20Noise%20Generators%20-%20Misc.pdf
+        - [assets/pdfs/Pink_and_White_Noise_Generators.pdf](
+          ./assets/pdfs/Pink_and_White_Noise_Generators.pdf)
+    - and
+      https://schematicsforfree.com/files/Audio/Circuits/Musician/Misc/Circuits/Mm5837N%20Noise%20Generator%20Applications.pdf
+        - [assets/pdfs/Mm5837N_Noise_Generator_Applications.pdf](
+          assets/pdfs/Mm5837N_Noise_Generator_Applications.pdf)
+
 ## Mon 19 May 2025
 
 ### Electronics series
