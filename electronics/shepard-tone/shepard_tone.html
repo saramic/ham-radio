@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shepard Tone Demo</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    button { font-size: 1.2em; margin: 1em 0; }
+    .desc { max-width: 600px; margin-bottom: 2em; }
+  </style>
+</head>
+<body>
+  <h1>Shepard Tone Demo</h1>
+  <div class="desc">
+    <p>This demo generates a Shepard tone: an auditory illusion of a tone that seems to rise (or fall) endlessly in pitch. Click the button to start or stop the effect.</p>
+  </div>
+  <button id="toggleBtn">Start Shepard Tone</button>
+
+  <script>
+    let ctx, oscillators = [], gains = [], running = false, animId;
+    const NUM_TONES = 10;
+    const BASE_FREQ = 220; // Hz
+    const OCTAVES = 6;
+    const SPEED = 0.05; // cycles per second (slower progression)
+
+    function shepardGain(pos) {
+      // Gaussian window for smooth fade in/out
+      return Math.exp(-0.5 * Math.pow((pos - 0.5) / 0.18, 2));
+    }
+
+    function startShepard(up = true) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      oscillators = [];
+      gains = [];
+      const masterGain = ctx.createGain();
+      masterGain.connect(ctx.destination);
+      masterGain.gain.setValueAtTime(0, ctx.currentTime); // Start silent
+      for (let i = 0; i < NUM_TONES; i++) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.connect(gain).connect(masterGain);
+        oscillators.push(osc);
+        gains.push(gain);
+        osc.start();
+      }
+      let t0 = ctx.currentTime;
+      let cycleLength = 1 / SPEED; // seconds for one full progression
+      function animate() {
+        let t = ctx.currentTime - t0;
+        let cyclePos = (t * SPEED) % 1; // 0..1
+        // Fade in/out master gain at start/end of each cycle
+        let fade = 1;
+        const FADE_FRAC = 0.12; // 12% of cycle for fade in/out
+        if (cyclePos < FADE_FRAC) fade = cyclePos / FADE_FRAC;
+        else if (cyclePos > 1 - FADE_FRAC) fade = (1 - cyclePos) / FADE_FRAC;
+        masterGain.gain.setValueAtTime(Math.max(0, Math.min(1, fade)), ctx.currentTime);
+        for (let i = 0; i < NUM_TONES; i++) {
+          let pos = ((t * SPEED + i / NUM_TONES) % 1);
+          if (!up) pos = 1 - pos;
+          let freq = BASE_FREQ * Math.pow(2, pos * OCTAVES);
+          oscillators[i].frequency.setValueAtTime(freq, ctx.currentTime);
+          gains[i].gain.setValueAtTime(shepardGain(pos), ctx.currentTime);
+        }
+        animId = requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    function stopShepard() {
+      if (animId) cancelAnimationFrame(animId);
+      if (oscillators.length) {
+        oscillators.forEach(osc => osc.stop());
+        oscillators = [];
+      }
+      if (ctx) ctx.close();
+      ctx = null;
+    }
+
+    const btn = document.getElementById('toggleBtn');
+    btn.onclick = () => {
+      if (!running) {
+        startShepard(true); // true = rising
+        btn.textContent = 'Stop Shepard Tone';
+      } else {
+        stopShepard();
+        btn.textContent = 'Start Shepard Tone';
+      }
+      running = !running;
+    };
+  </script>
+</body>
+</html>
