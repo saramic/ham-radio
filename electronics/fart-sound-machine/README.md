@@ -189,6 +189,18 @@ another website that is defunct but has a ripper track on startup
         - The Bio-Hazardous Materials Lab Escape Room Talking escape room prop
         - The Centre For Disease Control Escape Room Prop Game - PRIMUS XR555 
         - The DEFCON 1 Escape Room Prop - NUCLEAR WAR IS IMMINENT ! 
+            - https://www.youtube.com/watch?v=4l7N4a9_RwE
+            - kind of cool
+            - 5 same electronic keys
+            - sound played to dictate what to do
+            - a count down clock
+            - all have to be turned simultaneously to succeed (~200ms)
+            - idea is you hide all the keys in 5 different puzzles and once
+              found the puzzle can be disabled.
+            - [ ] get some electronic keys
+            - [ ] how to store the sound?
+                - although having an MP3 version where you can have alternate
+                  sound scenarios in different languages may be a good idea.
         - The Dual Key Switch Electromagnetic Lock Controller Escape Room Prop
         - The Escape Room Specific Explosive BOMB Prop! Escape room prop
         - The Extinction Level Event "ELE" Escape Room Game Prop!
