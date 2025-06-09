@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FSK Web Demo</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    .section { margin-bottom: 2em; }
+    label, button { font-size: 1em; }
+    #outputBits, #inputBits { font-family: monospace; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+  <h1>FSK (Frequency Shift Keying) Web Demo</h1>
+
+  <div class="section">
+    <h2>FSK Output (Transmit)</h2>
+    <label for="bitSeq">Bit Sequence (e.g. 1011001): </label>
+    <input id="bitSeq" value="1011001" maxlength="32">
+    <button id="sendBtn">Send FSK</button>
+    <div>Output: <span id="outputBits"></span></div>
+  </div>
+
+  <div class="section">
+    <h2>FSK Input (Receive)</h2>
+    <button id="startListen">Start Listening</button>
+    <button id="stopListen" disabled>Stop Listening</button>
+    <div>Detected Bits: <span id="inputBits"></span></div>
+  </div>
+
+  <script>
+    // FSK parameters
+    const FREQ_1 = 1200; // Hz for '1'
+    const FREQ_0 = 2200; // Hz for '0'
+    const BIT_DURATION = 0.2; // seconds per bit
+
+    // --- FSK Output ---
+    const sendBtn = document.getElementById('sendBtn');
+    const bitSeqInput = document.getElementById('bitSeq');
+    const outputBits = document.getElementById('outputBits');
+
+    sendBtn.onclick = async () => {
+      const bits = bitSeqInput.value.replace(/[^01]/g, '');
+      outputBits.textContent = bits;
+      if (!bits) return;
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.connect(ctx.destination);
+      let t = ctx.currentTime;
+      osc.start(t);
+      for (let i = 0; i < bits.length; i++) {
+        osc.frequency.setValueAtTime(bits[i] === '1' ? FREQ_1 : FREQ_0, t);
+        t += BIT_DURATION;
+      }
+      osc.stop(t);
+      osc.onended = () => ctx.close();
+    };
+
+    // --- FSK Input ---
+    let audioCtx, analyser, micStream, dataArray, rafId;
+    const startBtn = document.getElementById('startListen');
+    const stopBtn = document.getElementById('stopListen');
+    const inputBits = document.getElementById('inputBits');
+    let detectedBits = '';
+    let lastBit = null;
+    let lastBitTime = 0;
+
+    function freqFromFFT(data, sampleRate) {
+      // Find the index of the loudest bin
+      let max = -Infinity, idx = 0;
+      for (let i = 0; i < data.length; i++) {
+        if (data[i] > max) { max = data[i]; idx = i; }
+      }
+      // Convert index to frequency
+      return idx * sampleRate / (2 * data.length);
+    }
+
+    async function startListening() {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const source = audioCtx.createMediaStreamSource(micStream);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 2048;
+      dataArray = new Float32Array(analyser.frequencyBinCount);
+      source.connect(analyser);
+      detectedBits = '';
+      inputBits.textContent = '';
+      lastBit = null;
+      lastBitTime = audioCtx.currentTime;
+      listenLoop();
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+    }
+
+    function listenLoop() {
+      analyser.getFloatFrequencyData(dataArray);
+      const freq = freqFromFFT(dataArray, audioCtx.sampleRate);
+      // Simple thresholding for demo: pick closest frequency
+      let bit = null;
+      if (Math.abs(freq - FREQ_1) < 200) bit = '1';
+      else if (Math.abs(freq - FREQ_0) < 200) bit = '0';
+      // Only append if bit changed and enough time passed
+      const now = audioCtx.currentTime;
+      if (bit && (bit !== lastBit || now - lastBitTime > BIT_DURATION * 0.8)) {
+        detectedBits += bit;
+        inputBits.textContent = detectedBits;
+        lastBit = bit;
+        lastBitTime = now;
+      }
+      rafId = requestAnimationFrame(listenLoop);
+    }
+
+    async function stopListening() {
+      if (rafId) cancelAnimationFrame(rafId);
+      if (micStream) {
+        micStream.getTracks().forEach(track => track.stop());
+        micStream = null;
+      }
+      if (audioCtx) {
+        await audioCtx.close();
+        audioCtx = null;
+      }
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    }
+
+    startBtn.onclick = startListening;
+    stopBtn.onclick = stopListening;
+  </script>
+</body>
+</html>

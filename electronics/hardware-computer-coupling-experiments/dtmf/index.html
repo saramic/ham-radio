@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DTMF Web Demo</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    .section { margin-bottom: 2em; }
+    label, button { font-size: 1em; }
+    #outputKey, #inputKey { font-family: monospace; font-size: 1.2em; }
+    .keypad { display: grid; grid-template-columns: repeat(4, 2.5em); gap: 0.5em; margin-top: 1em; }
+    .keypad button { font-size: 1.2em; padding: 0.5em; }
+  </style>
+</head>
+<body>
+  <h1>DTMF (Dual-Tone Multi-Frequency) Web Demo</h1>
+
+  <div class="section">
+    <h2>DTMF Output (Transmit)</h2>
+    <div class="keypad" id="dtmfKeypad">
+      <button>1</button><button>2</button><button>3</button><button>A</button>
+      <button>4</button><button>5</button><button>6</button><button>B</button>
+      <button>7</button><button>8</button><button>9</button><button>C</button>
+      <button>*</button><button>0</button><button>#</button><button>D</button>
+    </div>
+    <div>Output: <span id="outputKey"></span></div>
+  </div>
+
+  <div class="section">
+    <h2>DTMF Input (Receive)</h2>
+    <button id="startListen">Start Listening</button>
+    <button id="stopListen" disabled>Stop Listening</button>
+    <div>Detected Key: <span id="inputKey"></span></div>
+  </div>
+
+  <script>
+    // DTMF frequencies
+    const DTMF_FREQS = {
+      '1': [697, 1209], '2': [697, 1336], '3': [697, 1477], 'A': [697, 1633],
+      '4': [770, 1209], '5': [770, 1336], '6': [770, 1477], 'B': [770, 1633],
+      '7': [852, 1209], '8': [852, 1336], '9': [852, 1477], 'C': [852, 1633],
+      '*': [941, 1209], '0': [941, 1336], '#': [941, 1477], 'D': [941, 1633]
+    };
+    const DTMF_KEYS = Object.keys(DTMF_FREQS);
+    const DTMF_DURATION = 0.25; // seconds
+
+    // --- DTMF Output ---
+    const keypad = document.getElementById('dtmfKeypad');
+    const outputKey = document.getElementById('outputKey');
+    keypad.onclick = async (e) => {
+      if (!e.target.matches('button')) return;
+      const key = e.target.textContent;
+      outputKey.textContent = key;
+      const [f1, f2] = DTMF_FREQS[key];
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      osc1.type = osc2.type = 'sine';
+      osc1.frequency.value = f1;
+      osc2.frequency.value = f2;
+      osc1.connect(ctx.destination);
+      osc2.connect(ctx.destination);
+      osc1.start(); osc2.start();
+      osc1.stop(ctx.currentTime + DTMF_DURATION);
+      osc2.stop(ctx.currentTime + DTMF_DURATION);
+      osc1.onended = () => ctx.close();
+    };
+
+    // --- DTMF Input ---
+    let audioCtx, analyser, micStream, dataArray, rafId;
+    const startBtn = document.getElementById('startListen');
+    const stopBtn = document.getElementById('stopListen');
+    const inputKey = document.getElementById('inputKey');
+    let lastKey = '';
+
+    function findDTMFKey(freqs) {
+      // Find the two highest peaks in the spectrum
+      let peaks = [];
+      for (let i = 0; i < freqs.length; i++) {
+        peaks.push({i, v: freqs[i]});
+      }
+      peaks.sort((a, b) => b.v - a.v);
+      const idx1 = peaks[0].i, idx2 = peaks[1].i;
+      const f1 = idx1 * audioCtx.sampleRate / (2 * freqs.length);
+      const f2 = idx2 * audioCtx.sampleRate / (2 * freqs.length);
+      // Find closest DTMF key
+      let bestKey = '', bestDist = 1e9;
+      for (const key of DTMF_KEYS) {
+        const [kf1, kf2] = DTMF_FREQS[key];
+        const dist = Math.min(
+          Math.hypot(f1 - kf1, f2 - kf2),
+          Math.hypot(f2 - kf1, f1 - kf2)
+        );
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestKey = key;
+        }
+      }
+      // Only accept if close enough
+      return bestDist < 50 ? bestKey : '';
+    }
+
+    async function startListening() {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const source = audioCtx.createMediaStreamSource(micStream);
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 2048;
+      dataArray = new Float32Array(analyser.frequencyBinCount);
+      source.connect(analyser);
+      inputKey.textContent = '';
+      lastKey = '';
+      listenLoop();
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+    }
+
+    function listenLoop() {
+      analyser.getFloatFrequencyData(dataArray);
+      const key = findDTMFKey(dataArray);
+      if (key && key !== lastKey) {
+        inputKey.textContent = key;
+        lastKey = key;
+      }
+      rafId = requestAnimationFrame(listenLoop);
+    }
+
+    async function stopListening() {
+      if (rafId) cancelAnimationFrame(rafId);
+      if (micStream) {
+        micStream.getTracks().forEach(track => track.stop());
+        micStream = null;
+      }
+      if (audioCtx) {
+        await audioCtx.close();
+        audioCtx = null;
+      }
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    }
+
+    startBtn.onclick = startListening;
+    stopBtn.onclick = stopListening;
+  </script>
+</body>
+</html>
