@@ -9,6 +9,8 @@ void setup()
   Serial.println("setup");
 
   pinMode(LED_BUILTIN, OUTPUT);
+  // Optional: set analog reference if needed
+  // analogReference(DEFAULT); // 5V on Nano
 }
 
 void loop()
@@ -22,5 +24,12 @@ void loop()
     Serial.println(light);
     last = now;
   }
+  // Read ADC value from A0
+  int adcValue = analogRead(A0);
+  // Convert to voltage (assuming 5V reference)
+  float voltage = adcValue * (5.0 / 1023.0);
+  Serial.print(">A0 voltage: ");
+  Serial.print(voltage, 3);
+  Serial.println(" V");
   delay(10);
 }
